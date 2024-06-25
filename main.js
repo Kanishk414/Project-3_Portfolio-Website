@@ -62,3 +62,41 @@ const typed = new Typed('.multiple-text',{
     backDelay : 1000,
     loop: true,
 })
+
+
+// connection of backend using nodejs and express 
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+  
+    const formData = {
+      fullName: document.querySelector('input[placeholder="Full Name"]').value,
+      email: document.querySelector('input[placeholder="Email Address"]').value,
+      mobileNumber: document.querySelector('input[placeholder="Mobile Number"]').value,
+      message: document.querySelector('textarea').value
+    };
+  
+    fetch('http://localhost:3000/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      alert(data.message || 'Form submitted successfully');
+      document.getElementById('contactForm').reset();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert('An error occurred: ' + error.message);
+    });
+  });
