@@ -4,3 +4,6 @@ by accepting projects .
 
 -- Database used mysql 
 -- table name "contacts"
+-- Level B has been completed 
+-- In server file all the configuration is been shown .
+
