@@ -36,28 +36,51 @@ db.connect((err) => {
     }
     console.log('Connected to MySQL database');
   });
-// API endpoint to handle form submissio
+
+// API endpoint to handle form submission
 app.post('/api/contact', (req, res) => {
-    const { fullName, email, mobileNumber, message } = req.body;
-  
-    console.log('Received data:', { fullName, email, mobileNumber, message });
-  
+  const { fullName, email, mobileNumber, message } = req.body;
+
+  // First, check if the table is empty
+  db.query('SELECT COUNT(*) as count FROM contacts', (err, results) => {
+    if (err) {
+      console.error('Error checking table:', err);
+      res.status(500).json({ error: 'An error occurred while checking the table' });
+      return;
+    }
+    const isEmpty = results[0].count === 0;
+
+    if (isEmpty) {
+      // If the table is empty, reset the auto-increment
+      resetAutoIncrement('contacts', (resetErr) => {
+        if (resetErr) {
+          res.status(500).json({ error: 'An error occurred while resetting auto-increment' });
+          return;
+        }
+        // Proceed with insertion
+        insertContact();
+      });
+    } else {
+      // If the table is not empty, proceed with insertion directly
+      insertContact();
+    }
+  });
+
+  function insertContact() {
     const sql = 'INSERT INTO contacts (full_name, email, mobile_number, message) VALUES (?, ?, ?, ?)';
-    console.log('Executing SQL:', sql);
-    console.log('With values:', [fullName, email, mobileNumber, message]);
-  
     db.query(sql, [fullName, email, mobileNumber, message], (err, result) => {
       if (err) {
         console.error('Error inserting data:', err);
         res.status(500).json({ error: 'An error occurred while submitting the form: ' + err.message });
         return;
       }
-      console.log('Data inserted successfully, result:', result);
+      console.log('Data inserted successfully');
       res.status(200).json({ message: 'Form submitted successfully' });
     });
-  });
+  }
+});
   
-  // Add this error handler
+  //  error handler
   app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke on the server: ' + err.message);
@@ -66,3 +89,19 @@ app.post('/api/contact', (req, res) => {
   app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
   });
+
+/* These is used when we empty the table contacts if it has values 
+so it would start from 1 not from the previos id's as it is set as
+auto increment */ 
+function resetAutoIncrement(tableName, callback) {
+    const resetQuery = `ALTER TABLE ${tableName} AUTO_INCREMENT = 1`;
+    db.query(resetQuery, (err, result) => {
+      if (err) {
+        console.error('Error resetting auto-increment:', err);
+        callback(err);
+      } else {
+        console.log(`Auto-increment reset for table ${tableName}`);
+        callback(null);
+      }
+    });
+  }
