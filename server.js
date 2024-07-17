@@ -4,67 +4,45 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// Serve static files from the public directory
-app.use(express.static('public'));
+// MySQL connection configuration using connection URL
+const db = mysql.createConnection('mysql://info_reachtried:03251e86ca84825d9abe0262292b879971198e20@dv7.h.filess.io:3307/info_reachtried');
 
-// MySQL connection configuration
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'yourusername',
-  password: 'yourpassword',
-  // In my case the database i used is info .
-  database: 'info'
-});
-//---------------------------------------------------------------
-// This is the table command which I used to create table in database 
-// CREATE TABLE contacts (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     full_name VARCHAR(255) NOT NULL,
-//     email VARCHAR(255) NOT NULL,
-//     mobile_number VARCHAR(20) NOT NULL,
-//     message TEXT NOT NULL,
-//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//   );
-//--------------------------------------------------------------
 // Connect to MySQL
 db.connect((err) => {
-    if (err) {
-      console.error('Error connecting to MySQL:', err);
-      return;
-    }
-    console.log('Connected to MySQL database');
-  });
+  if (err) {
+    console.error('Error connecting to MySQL:', err);
+    return;
+  }
+  console.log('Connected to MySQL database');
+});
 
 // API endpoint to handle form submission
 app.post('/api/contact', (req, res) => {
   const { fullName, email, mobileNumber, message } = req.body;
 
-  // First, check if the table is empty
   db.query('SELECT COUNT(*) as count FROM contacts', (err, results) => {
     if (err) {
       console.error('Error checking table:', err);
       res.status(500).json({ error: 'An error occurred while checking the table' });
       return;
     }
+
     const isEmpty = results[0].count === 0;
 
     if (isEmpty) {
-      // If the table is empty, reset the auto-increment
       resetAutoIncrement('contacts', (resetErr) => {
         if (resetErr) {
           res.status(500).json({ error: 'An error occurred while resetting auto-increment' });
           return;
         }
-        // Proceed with insertion
         insertContact();
       });
     } else {
-      // If the table is not empty, proceed with insertion directly
       insertContact();
     }
   });
@@ -82,29 +60,25 @@ app.post('/api/contact', (req, res) => {
     });
   }
 });
-  
-  //  error handler
-  app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke on the server: ' + err.message);
-  });
 
-  app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-  });
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke on the server: ' + err.message);
+});
 
-/* These is used when we empty the table contacts if it has values 
-so it would start from 1 not from the previos id's as it is set as
-auto increment */ 
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
+
 function resetAutoIncrement(tableName, callback) {
-    const resetQuery = `ALTER TABLE ${tableName} AUTO_INCREMENT = 1`;
-    db.query(resetQuery, (err, result) => {
-      if (err) {
-        console.error('Error resetting auto-increment:', err);
-        callback(err);
-      } else {
-        console.log(`Auto-increment reset for table ${tableName}`);
-        callback(null);
-      }
-    });
-  }
+  const resetQuery = `ALTER TABLE ${tableName} AUTO_INCREMENT = 1`;
+  db.query(resetQuery, (err, result) => {
+    if (err) {
+      console.error('Error resetting auto-increment:', err);
+      callback(err);
+    } else {
+      console.log(`Auto-increment reset for table ${tableName}`);
+      callback(null);
+    }
+  });
+}
