@@ -75,7 +75,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       message: document.querySelector('textarea').value
     };
       // http://localhost:300
-    fetch('http://localhost:300//api/contact', {
+    fetch('http://localhost:3000/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
