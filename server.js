@@ -9,6 +9,9 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Serve static files from the public directory
+app.use(express.static('public'));
+
 // MySQL connection configuration
 const db = mysql.createConnection({
   host: 'localhost',
