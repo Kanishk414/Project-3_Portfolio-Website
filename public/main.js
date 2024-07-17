@@ -74,7 +74,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       message: document.querySelector('textarea').value
     };
   
-    fetch('http://localhost:3000/api/contact', {
+    fetch('https://developers-portfolio-production.up.railway.app/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
