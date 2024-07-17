@@ -74,8 +74,8 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       mobileNumber: document.querySelector('input[placeholder="Mobile Number"]').value,
       message: document.querySelector('textarea').value
     };
-  
-    fetch('http://localhost:3000/api/contact', {
+      // http://localhost:300
+    fetch('https://kanishk-portfolio-five.vercel.app//api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
