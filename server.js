@@ -9,6 +9,8 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 // MySQL connection configuration using connection URL
 const db = mysql.createConnection('mysql://info_reachtried:03251e86ca84825d9abe0262292b879971198e20@dv7.h.filess.io:3307/info_reachtried');
 
@@ -64,6 +66,11 @@ app.post('/api/contact', (req, res) => {
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke on the server: ' + err.message);
+});
+
+// Serve index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(port, () => {
