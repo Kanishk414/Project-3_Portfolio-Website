@@ -75,7 +75,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       message: document.querySelector('textarea').value
     };
       // http://localhost:300
-    fetch('https://kanishk-portfolio-five.vercel.app//api/contact', {
+    fetch('http://localhost:300//api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
