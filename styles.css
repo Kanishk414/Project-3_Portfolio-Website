@@ -34,7 +34,9 @@ section {
     min-height: 100vh;
     padding:10rem 9% 2rem;
 }
-
+#link{
+    color:white;
+}
 .header {
     position: fixed;
     top: 0;
