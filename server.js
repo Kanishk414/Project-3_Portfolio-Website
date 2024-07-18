@@ -59,7 +59,7 @@ app.post('/api/contact', (req, res) => {
         return;
       }
       console.log('Data inserted successfully');
-      res.status(200).json({ message: 'Form submitted successfully' });
+      res.status(200).json({ message: 'Will contact you soon!' });
     });
   }
 });
