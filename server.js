@@ -1,12 +1,15 @@
+// Importing required Modules
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 
+// Initializinf the Express App
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Setting up Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -27,7 +30,7 @@ db.connect((err) => {
 // API endpoint to handle form submission
 app.post('/api/contact', (req, res) => {
   const { fullName, email, mobileNumber, message } = req.body;
-
+    // checking if the table is empty
   db.query('SELECT COUNT(*) as count FROM contacts', (err, results) => {
     if (err) {
       console.error('Error checking table:', err);
@@ -49,7 +52,7 @@ app.post('/api/contact', (req, res) => {
       insertContact();
     }
   });
-
+    // Contact information into the database
   function insertContact() {
     const sql = 'INSERT INTO contacts (full_name, email, mobile_number, message) VALUES (?, ?, ?, ?)';
     db.query(sql, [fullName, email, mobileNumber, message], (err, result) => {
@@ -73,11 +76,11 @@ app.use((err, req, res, next) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
+// Starting the server
 app.listen(port, () => {
   console.log(`Server running on https://developers-portfolio-production.up.railway.app${port}`);
 });
-
+// Resetting auto-Increment 
 function resetAutoIncrement(tableName, callback) {
   const resetQuery = `ALTER TABLE ${tableName} AUTO_INCREMENT = 1`;
   db.query(resetQuery, (err, result) => {
