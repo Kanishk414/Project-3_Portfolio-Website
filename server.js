@@ -78,7 +78,7 @@ app.get('*', (req, res) => {
 });
 // Starting the server
 app.listen(port, () => {
-  console.log(`Server running on https://developers-portfolio-production.up.railway.app${port}`);
+  console.log(`Server running on https://kanishkdevelopersportfolio.up.railway.app${port}`);
 });
 // Resetting auto-Increment 
 function resetAutoIncrement(tableName, callback) {
