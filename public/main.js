@@ -74,7 +74,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       message: document.querySelector('textarea').value
     };
   
-    fetch('https://developers-portfolio-production.up.railway.app/api/contact', {
+    fetch('https://https://kanishkdevelopersportfolio.up.railway.app//api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
