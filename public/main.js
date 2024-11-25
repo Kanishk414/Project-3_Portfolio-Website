@@ -73,19 +73,24 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     const mobileNumber = document.querySelector('input[placeholder="Mobile Number"]').value.trim();
     const message = document.querySelector('textarea').value.trim();
 
-    // Checking for empty fields and shows a popup if any field is empty
-    if (!fullName || !email || !mobileNumber || !message) {
-        let missingFields = [];
-        if (!fullName) missingFields.push("Full Name");
-        if (!email) missingFields.push("Email Address");
-        if (!mobileNumber) missingFields.push("Mobile Number");
-        if (!message) missingFields.push("Message");
+    // Checking for empty fields and validating mobile number length
+    let missingFields = [];
+    if (!fullName) missingFields.push("Full Name");
+    if (!email) missingFields.push("Email Address");
+    if (!mobileNumber) {
+        missingFields.push("Mobile Number");
+    } else if (mobileNumber.length !== 10) {
+        alert("Mobile Number must be exactly 10 digits.");
+        return; // Stop form submission
+    }
+    if (!message) missingFields.push("Message");
 
+    if (missingFields.length > 0) {
         alert(`Please fill in the following fields: ${missingFields.join(', ')}`);
         return; // Stop form submission
     }
 
-    // Preparing data for submission
+    // Prepare data for submission
     const formData = {
         fullName: fullName,
         email: email,
@@ -94,7 +99,7 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     };
 
     // Sending form data to the server
-    fetch('https://kanishkdevelopersportfolio.up.railway.app/api/contac', {
+    fetch('https://kanishkdevelopersportfolio.up.railway.app/api/contact', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -119,3 +124,4 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
             alert('An error occurred: ' + error.message);
         });
 });
+
