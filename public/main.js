@@ -63,39 +63,59 @@ const typed = new Typed('.multiple-text',{
     loop: true,
 })
 
-// Database 
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+// Adding event listener to the contact form
+document.getElementById('contactForm').addEventListener('submit', function (e) {
     e.preventDefault();
-  
+
+    // Fetch input values
+    const fullName = document.querySelector('input[placeholder="Full Name"]').value.trim();
+    const email = document.querySelector('input[placeholder="Email Address"]').value.trim();
+    const mobileNumber = document.querySelector('input[placeholder="Mobile Number"]').value.trim();
+    const message = document.querySelector('textarea').value.trim();
+
+    // Checking for empty fields and shows a popup if any field is empty
+    if (!fullName || !email || !mobileNumber || !message) {
+        let missingFields = [];
+        if (!fullName) missingFields.push("Full Name");
+        if (!email) missingFields.push("Email Address");
+        if (!mobileNumber) missingFields.push("Mobile Number");
+        if (!message) missingFields.push("Message");
+
+        alert(`Please fill in the following fields: ${missingFields.join(', ')}`);
+        return; // Stop form submission
+    }
+
+    // Preparing data for submission
     const formData = {
-      fullName: document.querySelector('input[placeholder="Full Name"]').value,
-      email: document.querySelector('input[placeholder="Email Address"]').value,
-      mobileNumber: document.querySelector('input[placeholder="Mobile Number"]').value,
-      message: document.querySelector('textarea').value
+        fullName: fullName,
+        email: email,
+        mobileNumber: mobileNumber,
+        message: message
     };
-  
-    fetch('https://kanishkdevelopersportfolio.up.railway.app/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
+
+    // Sending form data to the server
+    fetch('https://kanishkdevelopersportfolio.up.railway.app/api/contac', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      if (data.error) {
-        throw new Error(data.error);
-      }
-      alert(data.message || 'Form submitted successfully');
-      document.getElementById('contactForm').reset();
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      alert('An error occurred: ' + error.message);
-    });
-  });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            alert(data.message || 'Form submitted successfully');
+            document.getElementById('contactForm').reset();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred: ' + error.message);
+        });
+});
