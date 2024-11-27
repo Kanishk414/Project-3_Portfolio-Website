@@ -30,6 +30,6 @@ This is my personal developer portfolio website, showcasing my skills, achieveme
 - **Hosting**: Railway.
 
 ## Deployment
-Visit the live website: [Developer Portfolio](kanishkdevelopersportfolio.up.railway.app)
+Visit the live website: [Developer Portfolio](https://kanishkdevelopersportfolio.up.railway.app)
 
 
