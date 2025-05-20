@@ -13,7 +13,7 @@ This is my personal developer portfolio website, showcasing my skills, achieveme
 ### Backend
 - **Node.js**: Server-side logic to handle contact form submissions and route management.
 - **Express.js**: Framework for routing and middleware setup.
-- **MySQL**: Database integration for storing contact form data with a robust table structure.
+- **MongodbAtlas**: Database integration for storing contact form data with a robust table structure.
 
 ### Contact Form
 - A fully functional contact form with real-time validation.
@@ -26,10 +26,10 @@ This is my personal developer portfolio website, showcasing my skills, achieveme
 ## Technologies Used
 - **Frontend**: HTML5, CSS3, JavaScript, Font Awesome.
 - **Backend**: Node.js, Express.js.
-- **Database**: MySQL.
+- **Database**: MongoDB Atlas.
 - **Hosting**: Railway.
 
 ## Deployment
-Visit the live website: [Developer Portfolio](https://kanishkdevelopersportfolio.up.railway.app)
+Visit the live website: [Developer Portfolio](https://kanishkdevelopersportfolio.up.railway.app/)
 
 
