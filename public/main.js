@@ -99,7 +99,7 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     };
 
     // Sending form data to the server
-    fetch('https://kanishkdevelopersportfolio.up.railway.app/api/contact', {
+    fetch('https://kanishk.up.railway.app/api/contact', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
