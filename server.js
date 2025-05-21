@@ -65,5 +65,5 @@ app.get('*', (req, res) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`🚀 Server running on https://kanishkdevelopersportfolio.up.railway.app:${port}`);
+  console.log(`🚀 Server running on https://kanishk.up.railway.app:${port}`);
 });
