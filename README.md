@@ -29,7 +29,10 @@ This is my personal developer portfolio website, showcasing my skills, achieveme
 - **Database**: MongoDB Atlas.
 - **Hosting**: Railway.
 
+## Environment Variables
+- **PORT** : Set a valid port in .env file
+
 ## Deployment
-Visit the live website: [Developer Portfolio](https://kanishkdevelopersportfolio.up.railway.app/)
+Visit the live website: [Developer Portfolio](https://kanishk.up.railway.app/)
 
 
