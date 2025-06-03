@@ -1,210 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- FONT awssome.cdn -->
-     <!--  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="stylesheet" href="styles.css">
-
-    <title>developers portfolio</title>
+    <title>Kanishk Pardikar | Developer Portfolio</title>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
-        <a href="#" class="logoo">My Portfolio</a>
-        <!-- This is from fontawsome -->
-        <i class="fa-solid fa-bars" id="menu-icon"></i>
-
-        <nav class="navbar">
-            <a href="#home" class="active">Home</a>
-            <!-- <a href="#about">About</a> -->
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <div class="container header-container">
+            <a href="#" class="logo">KP</a>
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="menu-icon"></span>
+                </button>
+            </nav>
+        </div>
     </header>
 
-    <!-- Home Section -->
-    <section class="home" id="home">
-        <div class="home-content">
-            <h3>Hi,Myself</h3>
-            <h1>Kanishk Pardikar</h1>
-            <h3>And I'm a <span class="multiple-text"></span></h3>
-            <p>I'm a second-year BCA student at Ajeenkya DY Patil University in Pune. Currently, I'm honing my skills in frontend development, creating user-friendly and visually appealing web interfaces. However, my true passion lies in backend development, where I aim to build robust, scalable, and efficient server-side applications.
-
-                I'm fascinated by the complexities of backend technologies, including databases, server management, and API development. I am actively seeking opportunities to expand my knowledge through practical projects and internships, aspiring to become a well-rounded full-stack developer.
-
-                Thank you for taking the time to learn about me. I'm excited about my journey ahead and the opportunities that lie on the path to becoming a proficient backend developer.</p>
-            <div class="social-media">
-                <!-- <a href="#"><i class="fa-brands fa-facebook"></i></a> -->
-                <a href="https://x.com/KanishkPardikar" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-                <a href="https://github.com/Kanishk414" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.instagram.com/kanishk.pardikar/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/kanishk-pardikar/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-
-            </div>
-            <a href="https://drive.google.com/file/d/1NoJF_Xxtn-4HS8XH6cLbpZ1vo0-P2_Av/view?usp=sharing" class="btn" target="_blank">View Resume</a>
-        </div>
-        <div class="home-img">
-            <img src="home.png" alt="">
-        </div>
-
-    </section>
-
-  
-
-    <!-- Services section -->
-    <section class="services" id="services">
-        <h2 class="heading">MY <span>Services</span></h2>
-
-        <div class="services-container">
-
-            <div class="services-box">
-                <i class="fa-solid fa-code"></i>
-                <h3>Web Development</h3>
-                <p>
-                    As a passionate web developer, I craft responsive and user-friendly websites that leave a lasting impression. From sleek front-end designs to robust back-end functionality, I bring ideas to life in the digital realm. My expertise spans HTML5, CSS3, JavaScript, and modern frameworks, ensuring your web presence is both beautiful and performant.
-                </p>
-                <a href="#" class="btn">Read more</a>
-            </div>
-
-            <div class="services-box">
-                <i class="fa-brands fa-java"></i>
-                <h3>Java Developer</h3>
-                <p>
-                    Java is my language of choice for building powerful, scalable applications. With a deep understanding of object-oriented programming , I develop everything from desktop applications to enterprise-level software. My Java projects are characterized by clean, guaranteeing maintainable and future-proof solutions. With newly integrated frameworks .
-                </p>
-                <a href="#" class="btn">Read more</a>
-            </div>
-
-            <div class="services-box">
-                <i class="fa-solid fa-database"></i>
-                <h3>Database</h3>
-                <p>
-                    Data is the backbone of modern applications, and I excel at designing and managing databases that keep information flowing smoothly. Whether it's crafting efficient SQL queries and optimizing database performance, I ensure your data is well-structured, easily accessible, and protected. From relational databases like MySQL to NoSQL solutions.
-                </p>
-                <a href="#" class="btn">Read more</a>
-            </div>
-        </div>
-    </section>
-    <!-- Portfolio section -->
-    <section class="portfolio" id="portfolio">
-        <h2 class="heading">My <span>Achievements & Projects</span></h2>
-
-        <div class="portfolio-container">
-            <div class="portfolio-box">
-                <a id="link" href="https://github.com/Kanishk414/Tourist-web" target="_blank">
-                <img src="touristweb.png"  alt="abc" width="300rem" height="250rem">
-                
-                <div class="portfolio-layer">
-                    <h4>Tourist web</h4>
-                    <p>Click to redirect on github</p>
-                    <i class="fa-solid fa-up-right-from-square"></i>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <p class="hero-subtitle">Hi, Myself</p>
+                    <h1 class="hero-title">Kanishk Pardikar</h1>
+                    <p class="hero-role">And I'm a <span class="multiple-text"></span></p>
+                    <p class="hero-description">
+                        I'm currently in the final phase of my Bachelor of Computer Applications (BCA) at Ajeenkya DY Patil University, Pune, with final-year exams recently completed and a strong academic record (9.4 CGPA)
+                        . My journey began with frontend development, building clean, responsive interfaces—but over time, I discovered a deeper passion for backend development. That led me to focus on Java, Spring Boot, and robust database systems, combining academic learning with real-world project experience.
+                    </p>
+                    <p class="hero-description">
+                        Through hands-on work in both academic and internship settings, I’ve developed RESTful APIs, designed optimized database schemas, and built full-stack applications that integrate authentication, payments, and third-party APIs. My recent internship at Celebal Technologies allowed me to identify performance bottlenecks, enhance SQL efficiency, and collaborate across teams. As I prepare to transition from student to professional, I’m actively seeking backend-focused roles where I can contribute meaningfully and continue evolving as a developer.
+                    </p>
+                    <div class="hero-actions">
+                        <div class="social-links">
+                            <a href="https://x.com/KanishkPardikar" target="_blank" class="social-link" aria-label="Twitter">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                            <a href="https://github.com/Kanishk414" target="_blank" class="social-link" aria-label="GitHub">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="https://www.instagram.com/kanishk.pardikar/" target="_blank" class="social-link" aria-label="Instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/kanishk-pardikar/" target="_blank" class="social-link" aria-label="LinkedIn">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </a>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1NoJF_Xxtn-4HS8XH6cLbpZ1vo0-P2_Av/view?usp=sharing" class="btn btn-primary" target="_blank">
+                            <span>View Resume</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                </a>
-            </div>
-
-            <div class="portfolio-box">
-                <a id="link" href="https://drive.google.com/file/d/1vuUtDOOHGjA_hMp6vvgODc-1E1QMHjqJ/view?usp=sharing" target="_blank">
-                <img src="pythoncer.png" alt="abc" width="300rem" height="250rem">
-                <div class="portfolio-layer">
-                    <h4>Python Certificate</h4>
-                    <p>Basic python Certificate.</p>
-                    <i class="fa-solid fa-up-right-from-square"></i>
+                <div class="hero-image">
+                    <img src="home.png" alt="Kanishk Pardikar profile image">
                 </div>
-            </a>
-            </div> 
+            </div>
+        </section>
 
-            <div class="portfolio-box">
-                <a id="link" href="https://github.com/Kanishk414/TEXT_TO_IMAGE" target="_blank">
-                <img src="text.png" alt="" width="300rem" height="250rem">
-                <div class="portfolio-layer">
-                    <h4>Text-To-Image Generator AI </h4>
-                    <p>Click to redirect on github repo.</p>
-                    <i class="fa-solid fa-up-right-from-square"></i>
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">My <span>Services</span></h2>
+                    <p class="section-subtitle">Expertise I bring to the table</p>
                 </div>
-            </a>
-            </div>
+                <div class="services-grid">
+                    <div class="service-card" data-reveal="left">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="service-title">Web Development</h3>
+                        <p class="service-description">
+                            As a passionate web developer, I craft responsive and user-friendly websites that leave a lasting impression. From sleek front-end designs to robust back-end functionality, I bring ideas to life in the digital realm.
+                        </p>
+                        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
 
-            <div class="portfolio-box">
-                <a id="link" href="https://drive.google.com/file/d/1F4jsX_E2NClC1MQizh0oJJzz6uFylGtv/view?usp=sharing" target="_blank" >
-                <img src="blind.png" alt="" width="300rem" height="250rem">
-                <div class="portfolio-layer">
-                    <h4>Blind Coding</h4>
-                    <p>2nd position in blind coding competition</p>
-                    <i class="fa-solid fa-up-right-from-square"></i>
+                    <div class="service-card" data-reveal="up">
+                        <div class="service-icon">
+                            <i class="fa-brands fa-java"></i>
+                        </div>
+                        <h3 class="service-title">Java Development</h3>
+                        <p class="service-description">
+                            Java is my language of choice for building powerful, scalable applications. With a deep understanding of object-oriented programming, I develop everything from desktop applications to enterprise-level software.
+                        </p>
+                        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="service-card" data-reveal="right">
+                        <div class="service-icon">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3 class="service-title">Database Management</h3>
+                        <p class="service-description">
+                            Data is the backbone of modern applications, and I excel at designing and managing databases that keep information flowing smoothly. Whether it's crafting efficient SQL queries or optimizing database performance.
+                        </p>
+                        <a href="#" class="service-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
-            </a>
             </div>
+        </section>
 
-            <div class="portfolio-box">
-                <a id="link" href="https://drive.google.com/file/d/1KcjZW2LJG3MkeY_wC0FG-sfOdUHfQ6Yl/view?usp=sharing" target="_blank">
-                <img src="Celebal.png" alt="" width="300rem" height="250rem">
-                <div class="portfolio-layer">
-                    <h4>Celebal Technologies</h4>
-                    <p>Internship at Celebal Technologies as sql Adminstrator</p>
-                    <i class="fa-solid fa-up-right-from-square"></i>
+        <!-- Portfolio Section -->
+        <section class="portfolio" id="portfolio">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">My <span>Portfolio</span></h2>
+                    <p class="section-subtitle">Projects & Achievements</p>
                 </div>
-            </a>
-            </div>
+                <div class="portfolio-grid">
+                    <a href="https://github.com/Kanishk414/Tourist-web" target="_blank" class="portfolio-item" data-reveal="left">
+                        <div class="portfolio-image">
+                            <img src="touristweb.png" alt="Tourist Web Project">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <h3 class="portfolio-title">Tourist Web</h3>
+                            <p class="portfolio-description">Web application for tourists</p>
+                            <div class="portfolio-icon">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </div>
+                        </div>
+                    </a>
 
-            <div class="portfolio-box">
-                <a id="link" href="https://drive.google.com/file/d/1b5BR_JTLgaLdFePq2f_ksw0jy0endY9n/view?usp=sharing" target="_blank">
-                <img src="dbms.png" alt="" width="300rem" height="250rem">
-                <div class="portfolio-layer">
-                    <h4>Modern Database</h4>
-                    <p>Saylor academy Certificate basics of completing Modern databases</p>
-                    <i class="fa-solid fa-up-right-from-square"></i>
+                    <a href="https://drive.google.com/file/d/1vuUtDOOHGjA_hMp6vvgODc-1E1QMHjqJ/view?usp=sharing" target="_blank" class="portfolio-item" data-reveal="up">
+                        <div class="portfolio-image">
+                            <img src="pythoncer.png" alt="Python Certificate">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <h3 class="portfolio-title">Python Certificate</h3>
+                            <p class="portfolio-description">Basic Python certification</p>
+                            <div class="portfolio-icon">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/Kanishk414/TEXT_TO_IMAGE" target="_blank" class="portfolio-item" data-reveal="right">
+                        <div class="portfolio-image">
+                            <img src="text.png" alt="Text to Image Generator AI">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <h3 class="portfolio-title">Text-To-Image Generator AI</h3>
+                            <p class="portfolio-description">AI-powered image generation</p>
+                            <div class="portfolio-icon">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://drive.google.com/file/d/1F4jsX_E2NClC1MQizh0oJJzz6uFylGtv/view?usp=sharing" target="_blank" class="portfolio-item" data-reveal="left">
+                        <div class="portfolio-image">
+                            <img src="blind.png" alt="Blind Coding">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <h3 class="portfolio-title">Blind Coding</h3>
+                            <p class="portfolio-description">2nd position in blind coding competition</p>
+                            <div class="portfolio-icon">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://drive.google.com/file/d/1KcjZW2LJG3MkeY_wC0FG-sfOdUHfQ6Yl/view?usp=sharing" target="_blank" class="portfolio-item" data-reveal="up">
+                        <div class="portfolio-image">
+                            <img src="Celebal.png" alt="Celebal Technologies">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <h3 class="portfolio-title">Celebal Technologies</h3>
+                            <p class="portfolio-description">Internship as SQL Administrator</p>
+                            <div class="portfolio-icon">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://drive.google.com/file/d/1b5BR_JTLgaLdFePq2f_ksw0jy0endY9n/view?usp=sharing" target="_blank" class="portfolio-item" data-reveal="right">
+                        <div class="portfolio-image">
+                            <img src="dbms.png" alt="Modern Database">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <h3 class="portfolio-title">Modern Database</h3>
+                            <p class="portfolio-description">Saylor academy certification</p>
+                            <div class="portfolio-icon">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
             </div>
+        </section>
 
-          
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Contact <span>Me</span></h2>
+                    <p class="section-subtitle">Let's work together</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info" data-reveal="left">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p>kanishk.pardikar@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Location</h3>
+                                <p>Pune, Maharashtra, India</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fa-solid fa-code-branch"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>GitHub</h3>
+                                <p>github.com/Kanishk414</p>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="contactForm" class="contact-form" data-reveal="right">
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" placeholder="Mobile Number" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Send Message</span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
-    <!--  Contact section  -->
-    <section class="contact" id="contact">
-        <h2 class="heading">Contact <span>Me</span></h2>
-
-        <form id="contactForm">
-            <div class="input-box">
-                <input type="text" placeholder="Full Name">
-                <input type="email" placeholder="Email Address">           
-            </div>
-
-            <div class="input-box">
-                <input type="number" placeholder="Mobile Number">
-            </div>
-
-            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
-            
-            <input type="submit" value="Send Message" class="btn">
-        </form>
-    </section>
-
-    <!-- Footer design  -->
+        </section>
+    </main>
 
     <footer class="footer">
-        <div class="footer-text">
-            <p>All right Reserved By Me Everything is done under me ! </p>
-        </div>
-
-        <div class="footer-iconTop">
-            <a href="#home"><i class="fa-solid fa-angle-up"></i></a>
+        <div class="container footer-container">
+            <p class="footer-text">© 2024 Kanishk Pardikar. All rights reserved.</p>
+            <a href="#home" class="back-to-top">
+                <i class="fa-solid fa-angle-up"></i>
+            </a>
         </div>
     </footer>
 
-    <!-- scroll reveal -->
+    <!-- Scripts -->
     <script src="https://unpkg.com/scrollreveal"></script>
-
-    <!-- Typed js  -->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-
-    <!-- Main js -->
-    <script src = "main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

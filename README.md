@@ -31,6 +31,7 @@ This is my personal developer portfolio website, showcasing my skills, achieveme
 
 ## Environment Variables
 - **PORT** : Set a valid port in .env file
+- **MONGODB_URI** : set You mongodb atlas url 
 
 ## Deployment
 Visit the live website: [Developer Portfolio](https://kanishk.up.railway.app/)
