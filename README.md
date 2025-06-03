@@ -17,7 +17,7 @@ This is my personal developer portfolio website, showcasing my skills, achieveme
 
 ### Contact Form
 - A fully functional contact form with real-time validation.
-- Backend integration to store user-submitted information in a MySQL database.
+- Backend integration to store user-submitted information in a MongoDB database.
 
 ### Responsive Design
 - Fully responsive across all devices, ensuring accessibility and usability for all users.
