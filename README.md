@@ -52,7 +52,6 @@ This is my personal developer portfolio website, showcasing my skills, achieveme
 Create a `.env` file in your project root with the following values:
 
 ```env
-PORT=3000
 MYSQL_HOST=your-mysql-host
 MYSQL_PORT=your-mysql-port
 MYSQL_USER=your-mysql-user
