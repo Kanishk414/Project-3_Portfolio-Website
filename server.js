@@ -3,19 +3,18 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
+
 const { Sequelize, DataTypes } = require('sequelize');
 
-// Init Express
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-const publicPath = path.resolve(__dirname, 'public');
-app.use(express.static(publicPath));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Sequelize MySQL Setup
+// MySQL Connection Setup
 const sequelize = new Sequelize(
   process.env.MYSQL_DATABASE,
   process.env.MYSQL_USER,
@@ -28,7 +27,12 @@ const sequelize = new Sequelize(
   }
 );
 
-// Contact model
+// Test DB connection
+sequelize.authenticate()
+  .then(() => console.log('✅ Connected to MySQL database'))
+  .catch((err) => console.error('❌ MySQL connection failed:', err));
+
+// Define Contact Model
 const Contact = sequelize.define('Contact', {
   fullName: {
     type: DataTypes.STRING,
@@ -55,7 +59,12 @@ const Contact = sequelize.define('Contact', {
   timestamps: false,
 });
 
-// Contact form API
+// Sync the model with DB
+sequelize.sync()
+  .then(() => console.log('✅ Contacts table synced'))
+  .catch((err) => console.error('❌ Failed to sync table:', err));
+
+// Contact form submission endpoint
 app.post('/api/contact', async (req, res) => {
   const { fullName, email, mobileNumber, message } = req.body;
 
@@ -69,39 +78,18 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-// 🔍 Health check route
-app.get('/health', (req, res) => {
-  res.send('✅ Server is healthy');
-});
-
-// 🧠 Favicon fix (prevents 502 from /favicon.ico)
-app.get('/favicon.ico', (req, res) => res.sendStatus(204));
-
-// Catch-all: Serve index.html
+// Catch-all route to serve frontend
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(publicPath, 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Error handling
+// Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('❌ Server error:', err.stack);
-  res.status(500).send('Server error: ' + err.message);
+  console.error(err.stack);
+  res.status(500).send(`Server error: ${err.message}`);
 });
 
-// Start server after DB is ready
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('✅ Connected to MySQL database');
-
-    await sequelize.sync();
-    console.log('✅ Contacts table synced');
-
-    app.listen(port, () => {
-      console.log(`🚀 Server is running on port ${port}`);
-    });
-  } catch (err) {
-    console.error('❌ Startup error:', err);
-    process.exit(1);
-  }
-})();
+// Start server
+app.listen(port, () => {
+  console.log(`🚀 Server is running at ${port}`);
+});
