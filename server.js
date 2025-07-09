@@ -91,5 +91,5 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`🚀 Server is running at https://kanishk.up.railway.app:${port}`);
+  console.log(`🚀 Server is running at ${port}`);
 });
