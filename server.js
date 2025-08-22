@@ -12,16 +12,19 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
-  port: process.env.MYSQL_PORT,
+  port: process.env.MYSQL_PORT || 3306,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
   waitForConnections: true,
   connectionLimit: 10,
+  ssl: { rejectUnauthorized: true }, 
 });
 
+// API: Save contact
 app.post('/api/contact', async (req, res) => {
   const { fullName, email, mobileNumber, message } = req.body;
 
@@ -30,18 +33,6 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    const query = `
-      CREATE TABLE IF NOT EXISTS contacts (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        fullName VARCHAR(255),
-        email VARCHAR(255),
-        mobileNumber VARCHAR(20),
-        message TEXT,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `;
-    await pool.query(query);
-
     const insert = `
       INSERT INTO contacts (fullName, email, mobileNumber, message)
       VALUES (?, ?, ?, ?)
@@ -56,15 +47,18 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Server error: ' + err.message);
 });
 
+// Serve frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Start server
 app.listen(port, () => {
-  console.log(`Server running at https://kanishk.up.railway.app:${port}`);
+  console.log(`✅ Server running on port ${port}`);
 });
