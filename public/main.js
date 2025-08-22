@@ -128,7 +128,7 @@ contactForm.addEventListener('submit', function(e) {
     submitBtn.innerHTML = '<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
     
     // Send data to server
-    fetch('https://cloudexample.xyz/api/contact', {
+    fetch('/api/contact', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -190,3 +190,4 @@ window.addEventListener('load', () => {
     updateActiveNavLink();
 
 });
+
