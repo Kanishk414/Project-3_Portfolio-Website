@@ -128,7 +128,7 @@ contactForm.addEventListener('submit', function(e) {
     submitBtn.innerHTML = '<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
     
     // Send data to server
-    fetch('https://kanishk.up.railway.app/api/contact', {
+    fetch('https://cloudexample.xyz/api/contact', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -188,4 +188,5 @@ backToTop.addEventListener('click', () => {
 window.addEventListener('load', () => {
     revealOnScroll();
     updateActiveNavLink();
+
 });
