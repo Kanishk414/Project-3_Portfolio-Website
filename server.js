@@ -12,8 +12,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-const db = mysql.createConnection({
+// ✅ use pool instead of single connection
+const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
@@ -21,7 +21,6 @@ const db = mysql.createConnection({
   port: 3306,
   ssl: false   
 });
-
 
 // API: Save contact
 app.post('/api/contact', async (req, res) => {
@@ -38,10 +37,10 @@ app.post('/api/contact', async (req, res) => {
     `;
     await pool.query(insert, [fullName, email, mobileNumber, message]);
 
-    console.log('Contact saved to MySQL');
+    console.log('✅ Contact saved to MySQL');
     res.status(200).json({ message: 'Will contact you soon!' });
   } catch (err) {
-    console.error('Error saving contact:', err);
+    console.error('❌ Error saving contact:', err);
     res.status(500).json({ error: 'Failed to submit the form.' });
   }
 });
@@ -61,5 +60,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log(`✅ Server running on port ${port}`);
 });
-
-
