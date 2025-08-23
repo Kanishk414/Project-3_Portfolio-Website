@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -16,20 +15,37 @@ app.use(cors());
 app.use(bodyParser.json({ limit: '1mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// DB pool
-const pool = mysql.createPool({
-  host: process.env.MYSQL_HOST,
-  port: process.env.MYSQL_PORT || 3306,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
+let pool; // we'll assign after DB creation
 
-// Ensure schema once
-async function ensureSchema() {
+// --- Ensure DB and Schema ---
+async function initDatabase() {
+  const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } = process.env;
+
+  // Step 1: connect without database
+  const connection = await mysql.createConnection({
+    host: MYSQL_HOST,
+    port: MYSQL_PORT || 3306,
+    user: MYSQL_USER,
+    password: MYSQL_PASSWORD,
+  });
+
+  // Step 2: create DB if not exists
+  await connection.query(`CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\``);
+  console.log(`✅ Database ensured: ${MYSQL_DATABASE}`);
+  await connection.end();
+
+  // Step 3: create pool with DB
+  pool = mysql.createPool({
+    host: MYSQL_HOST,
+    port: MYSQL_PORT || 3306,
+    user: MYSQL_USER,
+    password: MYSQL_PASSWORD,
+    database: MYSQL_DATABASE,
+    waitForConnections: true,
+    connectionLimit: 10,
+  });
+
+  // Step 4: create table if not exists
   const sql = `
     CREATE TABLE IF NOT EXISTS contact_messages (
       id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -43,12 +59,13 @@ async function ensureSchema() {
   const conn = await pool.getConnection();
   try {
     await conn.query(sql);
+    console.log("✅ Table ensured: contact_messages");
   } finally {
     conn.release();
   }
 }
 
-// Health
+// --- Routes ---
 app.get('/api/health', async (req, res) => {
   try {
     const c = await pool.getConnection();
@@ -60,10 +77,8 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// Rate limit for contact
 const limiter = rateLimit({ windowMs: 60 * 1000, max: 20 });
 
-// Contact endpoint
 app.post('/api/contact', limiter, async (req, res) => {
   const { fullName, email, mobileNumber, message } = req.body || {};
   if (!fullName || !email || !message) {
@@ -87,7 +102,7 @@ app.post('/api/contact', limiter, async (req, res) => {
     }
     res.json({ ok: true, message: 'Will contact you soon!' });
   } catch (err) {
-    console.error('Error saving contact:', err);
+    console.error('❌ Error saving contact:', err);
     res.status(500).json({ ok: false, error: 'Failed to submit the form.' });
   }
 });
@@ -97,10 +112,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Boot
-ensureSchema().then(() => {
-  app.listen(port, () => console.log(`Server running on port ${port}`));
+// --- Boot ---
+initDatabase().then(() => {
+  app.listen(port, () => console.log(`🚀 Server running on port ${port}`));
 }).catch(err => {
-  console.error('Schema init failed:', err);
+  console.error('❌ Database init failed:', err);
   process.exit(1);
 });
