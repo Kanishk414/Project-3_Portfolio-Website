@@ -1,107 +1,124 @@
-# 🌐 Developer Portfolio
+# Developer Portfolio Website 🌐
 
-This is my personal developer portfolio website, showcasing my skills, achievements, and projects as a budding backend and full-stack developer.
+This is my **personal developer portfolio website**, showcasing my skills, achievements, and projects as a budding backend and full-stack developer.
 
----
+The project is **fully deployed on AWS** with the following infrastructure setup:
 
-## 🎨 Frontend
-
-- **HTML5**: Structured sections including Home, Services, Portfolio, and Contact for seamless navigation.
-- **CSS3**: Modern and responsive design with animations, a dark theme, and vibrant accent colors for an engaging user experience.
-- **JavaScript**:
-  - Smooth scrolling and active navigation highlighting based on scroll position.
-  - Dynamic text animations using `Typed.js` for roles like "Frontend Developer", "Java Developer", and "Database Administrator".
-  - Scroll animations powered by `ScrollReveal`.
+- **AWS EC2** → Hosting the Node.js + Express application.
+- **AWS RDS (MySQL)** → Used for storing contact form submissions.
+- **AWS Route 53** → Domain management and DNS configuration.
+- **Nginx** → Used as a reverse proxy for serving the application.
+- **PM2** → Keeps the Node.js app running continuously and manages processes.
 
 ---
 
-## ⚙️ Backend
-
-- **Node.js**: Handles server-side logic and form submission.
-- **Express.js**: Framework for routing and middleware setup.
-- **MySQL**: Integration using `mysql2` and connection pooling for storing contact form data in a structured table.
-
----
-
-## ✉️ Contact Form
-
-- Real-time input validation.
-- Form data stored securely in a MySQL database through backend integration.
+## 🚀 Features
+- Modern responsive portfolio design.
+- Backend powered by **Node.js + Express**.
+- Contact form with entries stored in **AWS RDS MySQL**.
+- Secure deployment with **Nginx** as a reverse proxy.
+- Domain name configured with **AWS Route 53**.
+- Background process management using **PM2**.
 
 ---
 
-## 📱 Responsive Design
-
-- Fully responsive across all devices — desktop, tablet, and mobile.
-
----
-
-## 🧰 Technologies Used
-
-| Layer     | Stack                                |
-|-----------|---------------------------------------|
-| Frontend  | HTML5, CSS3, JavaScript, Font Awesome |
-| Backend   | Node.js, Express.js                   |
-| Database  | MySQL (using `mysql2`)                |
-| Hosting   | Railway                               |
+## 📦 Tech Stack
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Backend**: Node.js, Express.js
+- **Database**: AWS RDS (MySQL)
+- **Hosting**: AWS EC2
+- **Domain & DNS**: AWS Route 53
+- **Reverse Proxy**: Nginx
+- **Process Manager**: PM2
 
 ---
 
-## 🔐 Environment Variables
+## 🛠️ Deployment Process
 
-Create a `.env` file in your project root with the following values:
+### 1. Clone Repository
+```bash
+git clone [https://github.com/your-username/Project-3_Portfolio-Website.git]
+cd Project-3_Portfolio-Website
 
-```env
-MYSQL_HOST=your-mysql-host
-MYSQL_PORT=your-mysql-port
-MYSQL_USER=your-mysql-user
-MYSQL_PASSWORD=your-mysql-password
-MYSQL_DATABASE=your-database-name
-````
-
----
-
-## 🚀 Deployment
-
-Visit the live website: [Developer Portfolio](https://kanishk.up.railway.app/)
-
----
-
-## 🧪 Start Commands
-
-### Install dependencies:
+### 2\. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Start the server:
+### 3\. Configure Environment
 
-```bash
-npm start
+Create a `.env` file and configure:
+
+```env
+MYSQL_HOST=<your-rds-endpoint>
+MYSQL_USER=<your-db-username>
+MYSQL_PASSWORD=<your-db-password>
+MYSQL_DATABASE=portfolio
+PORT=3000
+MYSQL_PORT=3306
 ```
 
-### Or use nodemon for development:
+### 4\. Start Application with PM2
 
 ```bash
-npm run dev
+pm2 start server.js --name portfolio-app
+pm2 save
+pm2 startup
 ```
 
----
+### 5\. Setup Nginx as a Reverse Proxy
 
-## 📜 Example `package.json` Scripts
+Edit Nginx config:
 
-```json
-"scripts": {
-  "start": "node server.js",
-  "dev": "nodemon server.js"
+```bash
+sudo nano /etc/nginx/sites-available/portfolio
+```
+
+Example config:
+
+```nginx
+server {
+    listen 80;
+    server_name Yourdomain.com www.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
 }
 ```
 
----
+Enable config and restart:
 
-## 👨‍💻 Author
+```bash
+sudo ln -s /etc/nginx/sites-available/portfolio /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```
 
-**Kanishk Pardikar**
+### 6\. Route 53 Setup
 
+  - Registered domain → `yourdomain.com`.
+  - Updated domain nameservers to Route 53.
+  - Created an A record pointing to the EC2 public IP.
+
+-----
+
+### 📌 Notes
+
+  - The application will auto-start on server reboot using PM2.
+  - All contact form messages are saved in the AWS RDS MySQL database.
+  - The domain name is configured with Route 53 for public access.
+
+-----
+
+### 👨‍💻 Author
+
+```Kanishk Pardikar
+Full Stack Developer | Backend Enthusiast
 ```
