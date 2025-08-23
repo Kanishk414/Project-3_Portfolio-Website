@@ -194,7 +194,7 @@ Test auto-renew:
 sudo certbot renew --dry-run
 ```
 
-Now visit: **[https://yourdomain.com](https://cloudexample.xyz)** ✅
+Now visit: **[https://cloudexample.xyz](https://cloudexample.xyz)** ✅
 
 ---
 
